@@ -1,14 +1,8 @@
-Here’s a detailed **`README.md`** template for your project:
-
----
-
-# AutoSheet  
-
-### Automating Form Submission with Google Sheets  
+# Automating Form Submission with Google Sheets  
 
 ## 🚀 About the Project  
 
-**AutoSheet** is a web application that automates the process of capturing form submissions and storing them directly into a Google Sheets document. The project integrates **Node.js** with Google Sheets API to create a seamless, efficient data handling system.  
+**AutoSheet** is a web application that automates the process of capturing form submissions and storing them directly into a Google Sheets document. The project integrates **Node.js** with Google Sheets API to create a seamless, efficient data handling system. 
 
 ### Key Features  
 - **Dynamic Data Submission**: Submits form data to Google Sheets in real-time.  
@@ -80,59 +74,6 @@ The backend is built using **Node.js** to handle form submissions and integrate 
 - **Google Sheets API Integration**:  
   Authentication and data submission are handled using the `googleapis` library.  
 
-### **Main Code**:  
-
-```javascript
-const express = require('express');
-const { google } = require('googleapis');
-const bodyParser = require('body-parser');
-require('dotenv').config();
-
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-const authenticateGoogle = async () => {
-  const auth = new google.auth.GoogleAuth({
-    credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
-  return auth.getClient();
-};
-
-app.post('/submit', async (req, res) => {
-  const { name, email, age } = req.body;
-
-  if (!name || !email || !age) {
-    return res.status(400).redirect('/error.html');
-  }
-
-  const status = age >= 60 ? 'Senior' : 'Junior';
-  const rowData = [[name, email, age, status]];
-
-  try {
-    const auth = await authenticateGoogle();
-    const sheets = google.sheets({ version: 'v4', auth });
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.SPREADSHEET_ID,
-      range: 'Sheet1!A2:D',
-      valueInputOption: 'RAW',
-      insertDataOption: 'INSERT_ROWS',
-      resource: { values: rowData },
-    });
-
-    res.redirect('/success.html');
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).redirect('/error.html');
-  }
-});
-
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
-```
-
----
 
 ## 🛠️ Working of the Project  
 
@@ -140,19 +81,19 @@ app.listen(3000, () => console.log('Server running on http://localhost:3000'));
 - Users submit their **name**, **email**, and **age** via a form.  
 
 #### Screenshot: Form Page  
-*(Insert a screenshot of your form here)*  
+![form page](https://github.com/user-attachments/assets/3d81502f-4d34-405c-8e04-86d6c163c052)
 
 ### 2. **Success Page**  
 - After successful data submission, users are redirected to a confirmation page.  
 
 #### Screenshot: Success Page  
-*(Insert a screenshot of your success page here)*  
+![success](https://github.com/user-attachments/assets/b6faf3c3-bae4-4b99-aeb9-110116d0ca02) 
 
 ### 3. **Error Page**  
 - If validation fails or an error occurs, users are redirected to an error page.  
 
 #### Screenshot: Error Page  
-*(Insert a screenshot of your error page here)*  
+![Error Page  ](https://github.com/user-attachments/assets/0c022589-4491-420c-9444-d13af26d12ef)
 
 ---
 
@@ -178,9 +119,9 @@ Feel free to fork this repository and submit a pull request. Contributions are w
 
 ## 🧑‍💻 Author  
 
-**[Your Name]**  
-Connect with me on [LinkedIn](#).  
+**[Rajnish Kumar Sharma]**  
+Connect with me on [LinkedIn](https://www.linkedin.com/in/rjnish/).  
 
 --- 
 
-Does this structure meet your needs? Let me know if you'd like further modifications!
+
